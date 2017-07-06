@@ -25,7 +25,7 @@ fi
 
 if [[ "$download" -gt 0 ]]; then
   rm -rfv latest.tgz release/
-  filename="$(curl -s "https://nodejs.org/dist/latest/" | grep linux-x86.tar.gz | grep href | head -n 1 | cut -d'"' -f 2)"
+  filename="$(curl -s "https://nodejs.org/dist/latest/" | grep linux-x64.tar.gz | grep href | head -n 1 | cut -d'"' -f 2)"
   wget -O latest.tgz "https://nodejs.org/dist/latest/${filename}"
   mkdir release
   tar xzvf latest.tgz -C release --strip-components 1
@@ -35,10 +35,11 @@ else
 fi
 
 echo
-echo "Full path to npm: $(readlink -f ./release/bin/npm)"
-echo "Full path to node: $(readlink -f ./release/bin/node)"
+echo "NOTE: You might want to add these two to your bashrc/profile/env file: "
+echo 
+echo "alias node=\"$(readlink -f ./release/bin/node)\""
+echo "alias npm=\"node $(readlink -f ./release/bin/npm)\""
 echo
-echo "NOTE: You might want to add these two to your \$PATH"
 echo
 
 
